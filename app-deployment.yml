@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sprongbootapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sprongbootapp
+  template:
+    metadata:
+      labels:
+        app: sprongbootapp
+    spec:
+      containers:
+        - image: oad3jp999/application-springboot:@tag@
+          name: sprongbootapp
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
