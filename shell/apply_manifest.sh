@@ -15,7 +15,7 @@ log "##### start #####"
 log "##### app   : ${1}"
 log "##### tag   : ${2}"
 
-sed -i "s/@tag@/${2}/g" ./app-deployment.yml
+sed -i "s/@tag@/${2}/g" ./${2}-deployment.yml
 
 log "##### apply manifest #####"
 log "##### kubectl apply -f ./${2}-deployment.yml"
