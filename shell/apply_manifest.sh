@@ -15,14 +15,14 @@ log "##### start #####"
 log "##### app   : ${1}"
 log "##### tag   : ${2}"
 
-sed -i "s/@tag@/${2}/g" ./${2}-deployment.yml
+sed -i "s/@tag@/${2}/g" ./${1}-deployment.yml
 
 log "##### apply manifest #####"
-log "##### kubectl apply -f ./${2}-deployment.yml"
-kubectl apply -f ./${2}-deployment.yml
+log "##### kubectl apply -f ./${1}-deployment.yml"
+kubectl apply -f ./${1}-deployment.yml
 
-log "##### kubectl apply -f ./${2}-service.yml"
-kubectl apply -f ./${2}-service.yml
+log "##### kubectl apply -f ./${1}-service.yml"
+kubectl apply -f ./${1}-service.yml
 
 exit 0
 
