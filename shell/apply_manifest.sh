@@ -1,26 +1,28 @@
 #!/bin/bash
 
-# ex) ./shell/apply_manifest.sh 0.0.4-4
+# ex) ./shell/apply_manifest.sh application-springboot 0.0.4-4
 
 # 共通関数
 source ./shell/function_common.sh
 
 # apply_manifest
-if [ "${1}" = "" ]; then
+if [ -z "${1}" ] || [ -z "${2}" ]; then
   log "##### Insufficient arguments"
   exit 1
 fi
 
 log "##### start #####"
-log "##### tag   : ${1}"
+log "##### app   : ${1}"
+log "##### tag   : ${2}"
 
-sed -i "s/@tag@/${1}/g" ./app-deployment.yml
+sed -i "s/@tag@/${2}/g" ./app-deployment.yml
 
 log "##### apply manifest #####"
-log "##### kubectl apply -f ./app-deployment.yml"
-kubectl apply -f ./app-deployment.yml
+log "##### kubectl apply -f ./${2}-deployment.yml"
+kubectl apply -f ./${2}-deployment.yml
 
-log "##### kubectl apply -f ./app-service.yml"
-kubectl apply -f ./app-service.yml
+log "##### kubectl apply -f ./${2}-service.yml"
+kubectl apply -f ./${2}-service.yml
 
 exit 0
+
