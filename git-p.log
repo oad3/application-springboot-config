@@ -38,3 +38,13 @@
 2023/08/19 00:28:44 正常実行
 2023/08/19 00:28:44 end git add :
 2023/08/19 00:28:44 start git commit -a -m CountUp-BuildNum
+2023/08/19 00:30:20 start git config --global user.email remote@email.com
+2023/08/19 00:30:20 正常実行
+2023/08/19 00:30:20 end git config --global user.email remote@email.com
+2023/08/19 00:30:20 start git config --global user.name remote
+2023/08/19 00:30:20 正常実行
+2023/08/19 00:30:20 end git config --global user.name remote
+2023/08/19 00:30:20 start git add :
+2023/08/19 00:30:20 正常実行
+2023/08/19 00:30:20 end git add :
+2023/08/19 00:30:20 start git commit -a -m CountUp-BuildNum
