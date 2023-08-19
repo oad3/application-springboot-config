@@ -1,28 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springbootapp-deployment
+  name: application-springboot-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: springbootapp
+      app: application-springboot-app
   template:
     metadata:
       labels:
-        app: springbootapp
+        app: application-springboot-app
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
-          name: springbootapp
+          name: application-springboot
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: application-springboot-cm
       restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: springbootapp-service
+  name: application-springboot-service
 spec:
   type: NodePort
   ports:
@@ -31,4 +34,4 @@ spec:
       targetPort: 8080
       nodePort: 30001
   selector:
-    app: springbootapp
+    app: application-springboot-app
