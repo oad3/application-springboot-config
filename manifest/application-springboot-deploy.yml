@@ -34,7 +34,8 @@ spec:
       port: 49161
       targetPort: 8080
       nodePort: 30001
-    - protocol: TCP
+    - name: "tcp8126"
+      protocol: TCP
       port: 8126
       targetPort: 8126
   selector:
