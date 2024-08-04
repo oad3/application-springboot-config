@@ -16,6 +16,7 @@ spec:
         - image: oad3jp999/application-springboot:@tag@
           name: application-springboot
           ports:
+            - containerPort: 8126
             - containerPort: 8080
           envFrom:
             - configMapRef:
@@ -33,5 +34,8 @@ spec:
       port: 49161
       targetPort: 8080
       nodePort: 30001
+    - protocol: TCP
+      port: 8126
+      targetPort: 8126
   selector:
     app: application-springboot-app
