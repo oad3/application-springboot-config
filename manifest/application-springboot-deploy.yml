@@ -28,6 +28,18 @@ spec:
               "init_config": {
                 "is_jmx": true,
                 "collect_default_metrics": true
+                "conf": [{
+                  "include": {
+                    "domain": "java.lang",
+                    "type": "OperatingSystem",
+                    "attribute": {
+                      "FreePhysicalMemorySize": {
+                        "metric_type": "gauge",
+                        "alias": "jvm.free_physical_memory"
+                      } 
+                    }
+                  }
+                }]
               },
               "instances": [{
                 "host": "%%host%%",
