@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: application-springboot-deploy
+  labels:
+    tags.datadoghq.com/env: app
+    tags.datadoghq.com/service: springbootapp-deployment
+    tags.datadoghq.com/version: 0.0.10
 spec:
   replicas: 1
   selector:
@@ -9,15 +13,54 @@ spec:
       app: application-springboot-app
   template:
     metadata:
+      name: application-springboot-deploy
       labels:
         app: application-springboot-app
+        tags.datadoghq.com/env: app
+        tags.datadoghq.com/service: springbootapp-deployment
+        tags.datadoghq.com/version: 0.0.10
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/java-lib.version: v1.38.1
+        ad.datadoghq.com/application-springboot.checks: |
+          {
+            "jmx": {
+              "init_config": {
+                "is_jmx": true,
+                "collect_default_metrics": true
+              },
+              "instances": [{
+                "host": "%%host%%",
+                "port": "8081"
+              }]
+            }
+          }
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
           name: application-springboot
           ports:
-            - containerPort: 8126
             - containerPort: 8080
+            - containerPort: 8126
+          env:
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            # - name: JAVA_OPTS
+            #   value: >-
+            #     -Dcom.sun.management.jmxremote
+            #     -Dcom.sun.management.jmxremote.authenticate=false
+            #     -Dcom.sun.management.jmxremote.ssl=false
+            #     -Dcom.sun.management.jmxremote.local.only=false
+            #     -Dcom.sun.management.jmxremote.port=8081
+            #     -Dcom.sun.management.jmxremote.rmi.port=8081
+            #     -Djava.rmi.server.hostname=$(POD_IP)
+            - name: JAVA_OPTS
+              value: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"
+          command: ["/bin/sh", "-c", "java -jar /usr/src/myapp/application.jar -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"]
           envFrom:
             - configMapRef:
                 name: application-springboot-cm
