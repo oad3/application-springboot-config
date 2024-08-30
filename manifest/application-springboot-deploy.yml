@@ -89,6 +89,10 @@ spec:
       port: 49161
       targetPort: 8080
       nodePort: 30001
+    - name: "jmx"
+      port: 49162
+      targetPort: 8081
+      nodePort: 30002
     - name: "tcp8126"
       protocol: TCP
       port: 8126
