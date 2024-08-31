@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: application-springboot-deploy
-  # labels:
-  #   tags.datadoghq.com/env: app
-  #   tags.datadoghq.com/service: springbootapp-deployment
-  #   tags.datadoghq.com/version: 0.0.10
+  labels:
+    tags.datadoghq.com/env: app
+    tags.datadoghq.com/service: springbootapp-deployment
+    tags.datadoghq.com/version: 0.0.10
 spec:
   replicas: 1
   selector:
@@ -16,52 +16,52 @@ spec:
       name: application-springboot-deploy
       labels:
         app: application-springboot-deploy
-      #   tags.datadoghq.com/env: app
-      #   tags.datadoghq.com/service: springbootapp-deployment
-      #   tags.datadoghq.com/version: 0.0.10
-      #   admission.datadoghq.com/enabled: "true"
-      # annotations:
-      #   admission.datadoghq.com/java-lib.version: v1.38.1
-      #   ad.datadoghq.com/application-springboot-deploy.checks: |
-      #     {
-      #       "jmx": {
-      #         "init_config": {
-      #           "is_jmx": true,
-      #           "collect_default_metrics": true
-      #         },
-      #         "instances": [{
-      #           "host": "%%host%%",
-      #           "port": "8081",
-      #           "conf": [{
-      #             "include": {
-      #               "domain": "java.lang",
-      #               "bean": [
-      #                 {
-      #                   "type": "MemoryPool",
-      #                   "name": "PS Eden Space",
-      #                   "attribute": {
-      #                     "Usage.used": {
-      #                       "alias": "jvm.heap_memory.eden_space",
-      #                       "metric_type": "gauge"
-      #                     }
-      #                   }
-      #                 },
-      #                 {
-      #                   "type": "MemoryPool",
-      #                   "name": "PS Old Gen",
-      #                   "attribute": {
-      #                     "Usage.used": {
-      #                       "alias": "jvm.heap_memory.old_gen",
-      #                       "metric_type": "gauge"
-      #                     }
-      #                   }
-      #                 }
-      #               ]
-      #             }
-      #           }]
-      #         }]
-      #       }
-      #     }
+        tags.datadoghq.com/env: app
+        tags.datadoghq.com/service: springbootapp-deployment
+        tags.datadoghq.com/version: 0.0.10
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/java-lib.version: v1.38.1
+        ad.datadoghq.com/application-springboot-deploy.checks: |
+          {
+            "jmx": {
+              "init_config": {
+                "is_jmx": true,
+                "collect_default_metrics": true
+              },
+              "instances": [{
+                "host": "%%host%%",
+                "port": "8081",
+                "conf": [{
+                  "include": {
+                    "domain": "java.lang",
+                    "bean": [
+                      {
+                        "type": "MemoryPool",
+                        "name": "PS Eden Space",
+                        "attribute": {
+                          "Usage.used": {
+                            "alias": "jvm.heap_memory.eden_space",
+                            "metric_type": "gauge"
+                          }
+                        }
+                      },
+                      {
+                        "type": "MemoryPool",
+                        "name": "PS Old Gen",
+                        "attribute": {
+                          "Usage.used": {
+                            "alias": "jvm.heap_memory.old_gen",
+                            "metric_type": "gauge"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }]
+              }]
+            }
+          }
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
@@ -88,7 +88,7 @@ spec:
             #     -Djava.rmi.server.hostname=$(POD_IP)
             - name: JAVA_OPTS
               value: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"
-          command: ["/bin/sh", "-c", "java -jar /usr/src/myapp/application.jar -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"]
+          command: ["/bin/sh", "-c", "java -jar /usr/src/myapp/application.jar -Dspring.jmx.enabled=true -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"]
           envFrom:
             - configMapRef:
                 name: application-springboot-cm
