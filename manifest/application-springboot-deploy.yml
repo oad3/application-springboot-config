@@ -24,7 +24,7 @@ spec:
         admission.datadoghq.com/java-lib.version: v1.38.1
         ad.datadoghq.com/application-springboot-deploy.checks: |
           {
-            "Tomcat": {
+            "jmx": {
               "init_config": {
                 "is_jmx": true,
                 "collect_default_metrics": true,
@@ -43,7 +43,7 @@ spec:
               },
               "instances": [{
                 "host": "%%host%%",
-                "port": "<JMX_PORT>"
+                "port": "8081"
               }]
             }
           }
