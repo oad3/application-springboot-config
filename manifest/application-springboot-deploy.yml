@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: application-springboot-deploy
+  name: application-springboot
   labels:
     tags.datadoghq.com/env: app
     tags.datadoghq.com/service: springbootapp-deployment
@@ -10,12 +10,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: application-springboot-deploy
+      app: application-springboot
   template:
     metadata:
-      name: application-springboot-deploy
+      name: application-springboot
       labels:
-        app: application-springboot-deploy
+        app: application-springboot
         tags.datadoghq.com/env: app
         tags.datadoghq.com/service: springbootapp-deployment
         tags.datadoghq.com/version: 0.0.10
@@ -60,7 +60,7 @@ spec:
         #       }]
         #     }
         #   }  
-        # ad.datadoghq.com/application-springboot-deploy.checks: |
+        # ad.datadoghq.com/application-springboot.checks: |
         #   {
         #     "jmx": {
         #       "init_config": {
@@ -152,4 +152,4 @@ spec:
     #   port: 8126
     #   targetPort: 8126
   selector:
-    app: application-springboot-deploy
+    app: application-springboot
