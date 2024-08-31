@@ -10,19 +10,19 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: application-springboot-app
+      app: application-springboot-deploy
   template:
     metadata:
       name: application-springboot-deploy
       labels:
-        app: application-springboot-app
+        app: application-springboot-deploy
         tags.datadoghq.com/env: app
         tags.datadoghq.com/service: springbootapp-deployment
         tags.datadoghq.com/version: 0.0.10
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/java-lib.version: v1.38.1
-        ad.datadoghq.com/application-springboot.checks: |
+        ad.datadoghq.com/application-springboot-deploy.checks: |
           {
             "jmx": {
               "init_config": {
@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
-          name: application-springboot
+          name: application-springboot-deploy
           ports:
             - containerPort: 8080
             - containerPort: 8126
@@ -113,4 +113,4 @@ spec:
       port: 8126
       targetPort: 8126
   selector:
-    app: application-springboot-app
+    app: application-springboot-deploy
