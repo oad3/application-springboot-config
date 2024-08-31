@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: application-springboot
+  name: application-springboot-deploy
   labels:
     tags.datadoghq.com/env: app
     tags.datadoghq.com/service: springbootapp-deployment
@@ -10,12 +10,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: application-springboot
+      app: application-springboot-deploy
   template:
     metadata:
-      name: application-springboot
+      name: application-springboot-deploy
       labels:
-        app: application-springboot
+        app: application-springboot-deploy
         tags.datadoghq.com/env: app
         tags.datadoghq.com/service: springbootapp-deployment
         tags.datadoghq.com/version: 0.0.10
@@ -152,4 +152,4 @@ spec:
     #   port: 8126
     #   targetPort: 8126
   selector:
-    app: application-springboot
+    app: application-springboot-deploy
