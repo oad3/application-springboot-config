@@ -15,7 +15,7 @@ spec:
     metadata:
       name: application-springboot-deploy
       labels:
-      #   app: application-springboot-deploy
+        app: application-springboot-deploy
       #   tags.datadoghq.com/env: app
       #   tags.datadoghq.com/service: springbootapp-deployment
       #   tags.datadoghq.com/version: 0.0.10
