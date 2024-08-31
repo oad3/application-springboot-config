@@ -24,7 +24,7 @@ spec:
         admission.datadoghq.com/java-lib.version: v1.38.1
         ad.datadoghq.com/application-springboot-deploy.checks: |
           {
-            "jmx": {
+            "Tomcat": {
               "init_config": {
                 "is_jmx": true,
                 "collect_default_metrics": true,
