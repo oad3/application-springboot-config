@@ -27,19 +27,7 @@ spec:
             "jmx": {
               "init_config": {
                 "is_jmx": true,
-                "collect_default_metrics": true,
-                "conf": [{
-                  "include": {
-                    "domain": "java.lang",
-                    "type": "OperatingSystem",
-                    "attribute": {
-                      "FreePhysicalMemorySize": {
-                        "metric_type": "gauge",
-                        "alias": "jvm.free_physical_memory"
-                      } 
-                    }
-                  }
-                }]
+                "collect_default_metrics": true
               },
               "instances": [{
                 "host": "%%host%%",
@@ -47,6 +35,31 @@ spec:
               }]
             }
           }
+        # ad.datadoghq.com/<CONTAINER_IDENTIFIER>.checks: |
+        #   {
+        #     "jmx": {
+        #       "init_config": {
+        #         "is_jmx": true,
+        #         "collect_default_metrics": true,
+        #         "conf": [{
+        #           "include": {
+        #             "domain": "java.lang",
+        #             "type": "OperatingSystem",
+        #             "attribute": {
+        #               "FreePhysicalMemorySize": {
+        #                 "metric_type": "gauge",
+        #                 "alias": "jvm.free_physical_memory"
+        #               } 
+        #             }
+        #           }
+        #         }]
+        #       },
+        #       "instances": [{
+        #         "host": "%%host%%",
+        #         "port": "8081"
+        #       }]
+        #     }
+        #   }  
         # ad.datadoghq.com/application-springboot-deploy.checks: |
         #   {
         #     "jmx": {
