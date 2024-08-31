@@ -134,9 +134,9 @@ spec:
       port: 49162
       targetPort: 8081
       nodePort: 30002
-    - name: "tcp8126"
-      protocol: TCP
-      port: 8126
-      targetPort: 8126
+    # - name: "tcp8126"
+    #   protocol: TCP
+    #   port: 8126
+    #   targetPort: 8126
   selector:
     app: application-springboot-deploy
