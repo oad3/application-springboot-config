@@ -22,9 +22,9 @@ spec:
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/java-lib.version: v1.38.1
-        ad.datadoghq.com/application-springboot-deploy.checks: |
+        ad.datadoghq.com/application-springboot.checks: |
           {
-            "tomcat": {
+            "jmx": {
               "init_config": {
                 "is_jmx": true,
                 "collect_default_metrics": true
@@ -103,7 +103,7 @@ spec:
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
-          name: application-springboot-deploy
+          name: application-springboot
           ports:
             - containerPort: 8080
             - containerPort: 8081
