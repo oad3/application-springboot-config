@@ -27,41 +27,66 @@ spec:
             "jmx": {
               "init_config": {
                 "is_jmx": true,
-                "collect_default_metrics": true
-              },
-              "instances": [{
-                "host": "%%host%%",
-                "port": "8081",
+                "collect_default_metrics": true,
                 "conf": [{
                   "include": {
                     "domain": "java.lang",
-                    "bean": [
-                      {
-                        "type": "MemoryPool",
-                        "name": "PS Eden Space",
-                        "attribute": {
-                          "Usage.used": {
-                            "alias": "jvm.heap_memory.eden_space",
-                            "metric_type": "gauge"
-                          }
-                        }
-                      },
-                      {
-                        "type": "MemoryPool",
-                        "name": "PS Old Gen",
-                        "attribute": {
-                          "Usage.used": {
-                            "alias": "jvm.heap_memory.old_gen",
-                            "metric_type": "gauge"
-                          }
-                        }
-                      }
-                    ]
+                    "type": "OperatingSystem",
+                    "attribute": {
+                      "FreePhysicalMemorySize": {
+                        "metric_type": "gauge",
+                        "alias": "jvm.free_physical_memory"
+                      } 
+                    }
                   }
                 }]
+              },
+              "instances": [{
+                "host": "%%host%%",
+                "port": "<JMX_PORT>"
               }]
             }
           }
+        # ad.datadoghq.com/application-springboot-deploy.checks: |
+        #   {
+        #     "jmx": {
+        #       "init_config": {
+        #         "is_jmx": true,
+        #         "collect_default_metrics": true
+        #       },
+        #       "instances": [{
+        #         "host": "%%host%%",
+        #         "port": "8081",
+        #         "conf": [{
+        #           "include": {
+        #             "domain": "java.lang",
+        #             "bean": [
+        #               {
+        #                 "type": "MemoryPool",
+        #                 "name": "PS Eden Space",
+        #                 "attribute": {
+        #                   "Usage.used": {
+        #                     "alias": "jvm.heap_memory.eden_space",
+        #                     "metric_type": "gauge"
+        #                   }
+        #                 }
+        #               },
+        #               {
+        #                 "type": "MemoryPool",
+        #                 "name": "PS Old Gen",
+        #                 "attribute": {
+        #                   "Usage.used": {
+        #                     "alias": "jvm.heap_memory.old_gen",
+        #                     "metric_type": "gauge"
+        #                   }
+        #                 }
+        #               }
+        #             ]
+        #           }
+        #         }]
+        #       }]
+        #     }
+        #   }
     spec:
       containers:
         - image: oad3jp999/application-springboot:@tag@
