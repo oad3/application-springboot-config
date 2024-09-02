@@ -27,7 +27,19 @@ spec:
             "jmx": {
               "init_config": {
                 "is_jmx": true,
-                "collect_default_metrics": true
+                "collect_default_metrics": true,
+                "conf": [{
+                  "include": {
+                    "domain": "java.lang",
+                    "type": "OperatingSystem",
+                    "attribute": {
+                      "FreePhysicalMemorySize": {
+                        "metric_type": "gauge",
+                        "alias": "jvm.free_physical_memory"
+                      } 
+                    }
+                  }
+                }]
               },
               "instances": [{
                 "host": "%%host%%",
@@ -35,6 +47,18 @@ spec:
               }]
             }
           }
+          # {
+          #   "jmx": {
+          #     "init_config": {
+          #       "is_jmx": true,
+          #       "collect_default_metrics": true
+          #     },
+          #     "instances": [{
+          #       "host": "%%host%%",
+          #       "port": "8081"
+          #     }]
+          #   }
+          # }
         # ad.datadoghq.com/<CONTAINER_IDENTIFIER>.checks: |
         #   {
         #     "jmx": {
