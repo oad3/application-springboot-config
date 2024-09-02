@@ -120,7 +120,7 @@ spec:
           ports:
             - containerPort: 8080
             - containerPort: 8081
-            # - containerPort: 8126
+            - containerPort: 8126
           env:
             # - name: DD_LOGS_INJECTION
             #   value: "true"
