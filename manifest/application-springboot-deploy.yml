@@ -122,8 +122,8 @@ spec:
             - containerPort: 8081
             # - containerPort: 8126
           env:
-            - name: DD_LOGS_INJECTION
-              value: "true"
+            # - name: DD_LOGS_INJECTION
+            #   value: "true"
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -139,7 +139,7 @@ spec:
             #     -Djava.rmi.server.hostname=$(POD_IP)
             - name: JAVA_OPTS
               value: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"
-          command: ["/bin/sh", "-c", "java -jar /usr/src/myapp/application.jar -Dspring.jmx.enabled=true -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"]
+          # command: ["/bin/sh", "-c", "java -jar /usr/src/myapp/application.jar -Dspring.jmx.enabled=true -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8081 -Dcom.sun.management.jmxremote.rmi.port=8081 -Djava.rmi.server.hostname=$(POD_IP)"]
           envFrom:
             - configMapRef:
                 name: application-springboot-cm
